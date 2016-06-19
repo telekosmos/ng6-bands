@@ -19,7 +19,7 @@
   background-color: #0277BD; /* primaryColor */
   padding: 10px;
   border-radius: 15px;
-  margin: 10px;
+  margin: 0px 10px 10px 10px;
 }
 .navbar .nav-links,
 .navbar .logo {

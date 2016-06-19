@@ -6,6 +6,8 @@ import routes from './app.routes';
 import Common from './common/common';
 import Components from './components/components';
 import AppComponent from './app.component';
+import AppUtil from './app.services';
+
 import 'normalize.css';
 
 let appModule = angular.module('app', [
@@ -17,10 +19,7 @@ let appModule = angular.module('app', [
 	// $locationProvider.html5Mode(true).hashPrefix('!')
 })
 .run(($rootScope, $state) => {
-	$rootScope.descriptionContent = "BIG CRAP!!!";
-	$rootScope.pageTitle = "XXXApp";
 	let states = $state.get();
-	console.log(`${JSON.stringify(states)}`);
 
 	$rootScope.$on('$stateChangeStart', (ev, toSt, toPrm, fromSt, fromPrm) => {
 		// console.log(`transition: ${JSON.stringify(fromSt)} -> ${JSON.stringify(toSt)}`);
@@ -30,6 +29,8 @@ let appModule = angular.module('app', [
 	});
 })
 .constant('ROUTES', routes)
+.service('util', AppUtil)
+/*
 .service('util', ['$state', 'ROUTES', function($state, ROUTES) {
 	this.getCompleteStates = function() {
 		let states = $state.get().filter((state) => {
@@ -37,15 +38,16 @@ let appModule = angular.module('app', [
 		});
 		states = states.map(state => {
 		  let thisRoute = ROUTES.filter(route => route.url == state.url)[0];
-		  let pageTit = thisRoute.pageTitle;
+		  let pageTit = thisRoute? thisRoute.pageTitle: 'Missing route';
 		  return Object.assign(state, {pageTitle: pageTit});
 		});
 
-		console.log(`states service: ${JSON.stringify(states)}`)
+		// console.log(`states service: ${JSON.stringify(states)}`)
 		return states;	
 	};
 	
 }])
+*/
 .directive('app', AppComponent);
 
 /*
