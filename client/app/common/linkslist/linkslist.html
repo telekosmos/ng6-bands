@@ -1,0 +1,13 @@
+<div class="linkstable">
+<table>
+  <thead>
+    <tr><th>Route</th><th>Name</th></tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat='state in vm.states'>
+      <td><a ui-sref="{{state.name}}">{{state.url}}</a></td>
+      <td>{{state.pageTitle}}</td>
+    </tr>
+  </tbody>
+</table>
+</div>
