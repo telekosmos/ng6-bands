@@ -1,8 +1,13 @@
+'use strict';
+
 import angular from 'angular';
 import 'angular-ui-router';
+import routes from './app.routes';
 import Common from './common/common';
 import Components from './components/components';
 import AppComponent from './app.component';
+import AppUtil from './app.services';
+
 import 'normalize.css';
 
 let appModule = angular.module('app', [
@@ -10,6 +15,39 @@ let appModule = angular.module('app', [
 	Common.name,
 	Components.name
 ])
+.config(($locationProvider) => {
+	// $locationProvider.html5Mode(true).hashPrefix('!')
+})
+.run(($rootScope, $state) => {
+	let states = $state.get();
+
+	$rootScope.$on('$stateChangeStart', (ev, toSt, toPrm, fromSt, fromPrm) => {
+		// console.log(`transition: ${JSON.stringify(fromSt)} -> ${JSON.stringify(toSt)}`);
+		if (!!toSt.name)
+			// $rootScope.pageTitle = toSt.name + '::XXXApp';
+			$rootScope.pageTitle = routes.filter((route) => route.url == toSt.url)[0].pageTitle;
+	});
+})
+.constant('ROUTES', routes)
+.service('util', AppUtil)
+/*
+.service('util', ['$state', 'ROUTES', function($state, ROUTES) {
+	this.getCompleteStates = function() {
+		let states = $state.get().filter((state) => {
+		  return state.name.length > 0 && !state.abstract
+		});
+		states = states.map(state => {
+		  let thisRoute = ROUTES.filter(route => route.url == state.url)[0];
+		  let pageTit = thisRoute? thisRoute.pageTitle: 'Missing route';
+		  return Object.assign(state, {pageTitle: pageTit});
+		});
+
+		// console.log(`states service: ${JSON.stringify(states)}`)
+		return states;	
+	};
+	
+}])
+*/
 .directive('app', AppComponent);
 
 /*
@@ -33,7 +71,8 @@ angular.element(document).ready(() => {
 			})
 		}
 	}
-	angular.bootstrap(container, [appModule.name]), {
+	// angular.bootstrap(container, [appModule.name]), {
+	angular.bootstrap(document, [appModule.name]), { 
 		strictDi: true
 	}
 });

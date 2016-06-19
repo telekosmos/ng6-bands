@@ -1,3 +1,5 @@
+'use strict';
+
 import angular from 'angular';
 import 'angular-ui-router';
 import homeComponent from './home.component';

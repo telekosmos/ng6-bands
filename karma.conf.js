@@ -3,8 +3,9 @@
 module.exports = function(config) {
   config.set({
 
+    configFile: './jspm.config.js',
     // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: '',
+    basePath: './',
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
@@ -32,17 +33,25 @@ module.exports = function(config) {
     jspm: {
       // Edit this to your needs
       config: 'jspm.config.js',
+      packages: 'client/jspm_packages',
       loadFiles: ['client/app/**/*.spec.js'],
       serveFiles: [
         'client/app/**/*.js',
         'client/app/**/*.html',
         'client/app/**/*.css'
-      ]
+      ],
+      paths: {
+        'github:*': 'base/client/jspm_packages/github/*',
+        'npm:*': 'base/client/jspm_packages/npm/*',
+        'js/*': 'base/client/js/*'
+      },
+      urlRoot: './'
     },
 
     proxies: {
       // '/jspm_packages': '/base/jspm_packages',
       // '/jspm.config.js': '/base/jspm.config.js'
+      '/client': '/base/client'
     },
 
     // list of files to exclude
@@ -51,6 +60,15 @@ module.exports = function(config) {
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
     logLevel: config.LOG_INFO,
+    client: {
+      captureConsole: true,
+      mocha: {
+        bail: false,
+        // require: 'should'
+        reporter: 'spec',
+        ui: 'bdd'
+      }
+    }
 
   });
 };
