@@ -2,19 +2,23 @@
 
 const routes = [{
   url: '/foo',
-  pageTitle: 'Foo',
+  pageName: 'Foo',
+  pageTitle: 'Angular Rocks'
 }, {
   url: '/bar',
-  pageTitle: 'Bar'
+  pageName: 'Bar',
+  pageTitle: 'Angular Rocks'
 }, {
   url: '/the-rolling-stones',
   name: 'the-rolling-stones',
+  pageName: 'The Rolling Stones',
   pageTitle: 'The Rolling Stones',
   type: 'band',
   wiki: 'https://en.wikipedia.org/w/api.php?format=json&action=query&prop=pageimages|info|extracts&exintro=&titles=The%20Rolling%20Stones&pithumbsize=1500&callback=',
   youtube: 'O4irXQhgMqg',  
 }, {
   url: '/the-beatles',
+  pageName: 'The Beatles',
   pageTitle: 'The Beatles',
   name: 'the-beatles',
   type: 'band',
@@ -24,15 +28,18 @@ const routes = [{
   url: '/queen',
   name: 'queen',
   pageTitle: 'Queen',
+  pageName: 'Queen',
   type: 'band',
   wiki: 'https://en.wikipedia.org/w/api.php?format=json&action=query&prop=pageimages|info|extracts&exintro=&titles=Queen%20(band)&pithumbsize=1500&callback=',
   youtube: 'fJ9rUzIMcZQ'
 }, {
   url: '/',
-  pageTitle: 'Home'
+  pageTitle: 'Angular Rocks',
+  pageName: 'Home'
 }, {
   url: '/about',
-  pageTitle: 'About'
+  pageTitle: 'About',
+  pageName: 'About'
 }];
 
 export default routes;

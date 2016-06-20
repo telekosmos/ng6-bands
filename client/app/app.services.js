@@ -19,7 +19,7 @@ class AppUtil {
     states = states.map(state => {
       let thisRoute = this._ROUTES.filter(route => route.url == state.url)[0];
       let pageTit = thisRoute? thisRoute.pageTitle: 'Missing route';
-      return Object.assign(state, {pageTitle: pageTit});
+      return Object.assign(state, {pageTitle: pageTit, pageName: thisRoute.pageName});
     });
 
     // console.log(`states service: ${JSON.stringify(states)}`)
