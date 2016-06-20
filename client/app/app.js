@@ -29,6 +29,9 @@ let appModule = angular.module('app', [
 	});
 })
 .constant('ROUTES', routes)
+.factory('BandsCache', function($cacheFactory) {
+	return $cacheFactory('bandsCache');
+})
 .service('util', AppUtil)
 /*
 .service('util', ['$state', 'ROUTES', function($state, ROUTES) {
@@ -61,7 +64,7 @@ var noAngularDOM;
 angular.element(document).ready(() => {
 	if(location.origin.match(/localhost/)) {
 		System.trace = true;
-		noAngularDOM = container.cloneNode(true);
+		noAngularDOM = document.cloneNode(true); // container.cloneNode(true);
 		if ((!System.hotReloader)) {
 			System.import('capaj/systemjs-hot-reloader').then(HotReloader => {
 				System.hotReloader = new HotReloader.default('http://localhost:8081/');
