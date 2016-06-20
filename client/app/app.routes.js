@@ -36,10 +36,6 @@ const routes = [{
   url: '/',
   pageTitle: 'Angular Rocks',
   pageName: 'Home'
-}, {
-  url: '/about',
-  pageTitle: 'About',
-  pageName: 'About'
 }];
 
 export default routes;
