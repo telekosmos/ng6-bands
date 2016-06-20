@@ -2,12 +2,13 @@
 
 import angular from 'angular';
 import 'angular-ui-router';
+import 'angular-sanitize';
 import bandComponent from './band.component';
 
 import routes from '../../app.routes';
 
 let bandModule = angular.module('band', [
-	'ui.router'
+	'ui.router', 'ngSanitize'
 ])
 .config(($stateProvider, $urlRouterProvider)=>{
   $urlRouterProvider.otherwise('/');
@@ -23,7 +24,7 @@ let bandModule = angular.module('band', [
   bandRoutes.forEach(br => {
     $stateProvider.state(br.name, {
       url: br.url,
-      template: '<band band-name="'+br.pageTitle+'"></band>'
+      template: '<band band-title="'+br.pageTitle+'" band-name="'+br.name+'"></band>'
     })
   })
   /*

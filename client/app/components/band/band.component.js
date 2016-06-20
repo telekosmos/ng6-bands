@@ -13,7 +13,8 @@ let bandComponent = function(){
 		template: template,
 		restrict: 'E',		
 		scope: {
-      bandName: '@'
+      bandName: '@', // name of the state
+      bandTitle: '@' // band proper name
     },
     controller: controller,
     controllerAs: 'vm',
