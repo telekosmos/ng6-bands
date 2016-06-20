@@ -17,8 +17,9 @@ import AppServices from './app.services';
 
 describe('AppUtil', ()=>{
   let mockState, mockRoutes, mockBackend, mockCache;
-  var makeController, controller;
-  var makeService, service;
+  let makeController, controller;
+  let makeService, service;
+  let mockBand = 'queen';
   
   beforeEach(angular.mock.module(AppModule.name));
   beforeEach(angular.mock.module('ui.router'));
@@ -29,40 +30,7 @@ describe('AppUtil', ()=>{
     mockBackend = _$httpBackend_;
     mockCache = _BandsCache_;
 
-    service = util;
-  }));
-  
-  describe('Basic checks', function() {
-    // test things about the component module
-    // checking to see if it registers certain things and what not
-    // test for best practices with naming too
-    it ('should exist module and service', function() {
-      expect(null).to.not.be.undefined;
-      expect(AppModule).not.to.be.undefined;
-      expect(AppModule.name).to.equal('app');
-
-      expect(service).to.not.be.undefined;
-      expect(service._ROUTES).to.not.be.undefined;
-      expect(service._ROUTES.length).to.not.be.undefined;
-    });
-   })
-   
-   describe('Service functionality', function() { 
-
-    it('should get the full states list', function() {
-      let states = service.getCompleteStates();
-      expect(states).not.to.be.undefined;
-      expect(states.length).not.to.be.defined;
-      expect(states.length).to.be.gt(0);
-      let checkStates = function(list) {
-        return list.every(item => typeof item.url !== 'undefined' & item.url.length > 0)
-      }
-      expect(states).to.satisfy(checkStates);
-    });
-
-
-    it('should return an object from wikipedia', function() {
-      mockBackend.whenJSONP(/.*/).respond({
+    mockBackend.whenJSONP(/.*/).respond({
         "batchcomplete": "",
         "query": {
           "pages": {
@@ -89,13 +57,58 @@ describe('AppUtil', ()=>{
         }
       });
 
-      let promise = service.getBandMedia('the-rolling-stones');
+    service = util;
+  }));
+  
+  afterEach(function() {
+    mockBackend.verifyNoOutstandingExpectation();
+    mockBackend.verifyNoOutstandingRequest();
+  });
+
+  describe('Basic checks', function() {
+    // test things about the component module
+    // checking to see if it registers certain things and what not
+    // test for best practices with naming too
+    it ('should exist module and service', function() {
+      expect(null).to.not.be.undefined;
+      expect(AppModule).not.to.be.undefined;
+      expect(AppModule.name).to.equal('app');
+
+      expect(service).to.not.be.undefined;
+      expect(service._ROUTES).to.not.be.undefined;
+      expect(service._ROUTES.length).to.not.be.undefined;
+      expect(service._cache).not.to.be.undefined;
+
+      expect(mockState).not.to.be.undefined;
+      expect(mockCache).not.to.be.undefined;
+    });
+   })
+   
+   describe('Service functionality', function() { 
+
+    it('should get the full states list', function() {
+      let states = service.getCompleteStates();
+      expect(states).not.to.be.undefined;
+      expect(states.length).not.to.be.defined;
+      expect(states.length).to.be.gt(0);
+      let checkStates = function(list) {
+        return list.every(item => typeof item.url !== 'undefined' & item.url.length > 0)
+      }
+      expect(states).to.satisfy(checkStates);
+    });
+
+
+    it('should return an object from wikipedia', function() {
+      const promise = service.getBandMedia(mockBand);
       expect(promise).to.eventually.be.fulfilled;
       expect(promise).to.eventually.be.an('object');
-      let keys = ['img', 'ogTit', 'ogType', 'ogImg', 'ogUrl', 'metaKeys', 'metaDesc', 'pageTitle', 'youtube', 'text']
+      const keys = ['img', 'ogTit', 'ogType', 'ogImg', 'ogUrl', 'metaKeys', 'metaDesc', 'pageTitle', 'youtube', 'text']
       expect(promise).to.eventually.include.keys(keys)
+      expect(promise).to.eventually.have.property('ogTit', 'The Rolling Stones');
 
       mockBackend.flush();
     });
+
   });
+
 });

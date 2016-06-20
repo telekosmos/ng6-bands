@@ -3,11 +3,13 @@
 // import _find from 'lodash.find';
 
 class AppUtil {
-  constructor($state, ROUTES, $http, BandsCache) {
+  constructor($state, ROUTES, $http, BandsCache, $sce, $q) {
     this._$state = $state;
     this._ROUTES = ROUTES;
     this._cache = BandsCache;
     this._$http = $http;
+    this._$sce = $sce;
+    this._$q = $q;
   }
 
   getCompleteStates () {
@@ -32,6 +34,14 @@ class AppUtil {
   getBandMedia(band) {
     // TODO use cache!!!
     // let bandObj = _find(this._ROUTES, route => route.name == band);
+    let cacheHit = this._cache.get(band);
+    if (cacheHit) {
+      console.log('Cache hit!!!');
+      let deferred = this._$q.defer();
+      deferred.resolve(cacheHit);
+      return deferred.promise;
+    }
+
     let bandObj = this._ROUTES.filter((route => route.name == band))[0];
 
     // let wiki = this._$http.get(bandObj.wiki);
@@ -57,15 +67,16 @@ class AppUtil {
         ogType: 'website',
         ogUrl: bandObj.url,
         pageTitle: bandObj.pageTitle,
-        youtube: bandObj.youtube,
+        youtube: this._$sce.trustAsResourceUrl('http://www.youtube.com/embed/'+bandObj.youtube),
         text: info.extract
       };
-      // console.log(`[AppUtil.getBandMedia] ${JSON.stringify(bandInfo)}`);
+      // console.log(`[AppUtil.getBandMedia] ${JSON.stringify(bandInfo.youtube)}`);
+      this._cache.put(band, bandInfo);
       return bandInfo;
     }) // EO return wiki
   } 
 }
 
 
-AppUtil.$inject = ['$state', 'ROUTES', '$http', 'BandsCache'];
+AppUtil.$inject = ['$state', 'ROUTES', '$http', 'BandsCache', '$sce', '$q'];
 export default AppUtil;
