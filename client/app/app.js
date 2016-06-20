@@ -18,14 +18,36 @@ let appModule = angular.module('app', [
 .config(($locationProvider) => {
 	// $locationProvider.html5Mode(true).hashPrefix('!')
 })
-.run(($rootScope, $state) => {
+.run(($rootScope, $state, util) => {
 	let states = $state.get();
 
 	$rootScope.$on('$stateChangeStart', (ev, toSt, toPrm, fromSt, fromPrm) => {
 		// console.log(`transition: ${JSON.stringify(fromSt)} -> ${JSON.stringify(toSt)}`);
-		if (!!toSt.name)
-			// $rootScope.pageTitle = toSt.name + '::XXXApp';
-			$rootScope.pageTitle = routes.filter((route) => route.url == toSt.url)[0].pageTitle;
+		if (!!toSt.name) {
+			let route = routes.filter((route) => route.url == toSt.url)[0];
+			
+			$rootScope.metas = {};
+			if (!!route.type && route.type == 'band') {
+				util.getBandMedia(route.name).then(bandData => {
+					$rootScope.metas.ogTitle = bandData.ogTit;
+					$rootScope.metas.ogImg = bandData.ogImg;
+					$rootScope.metas.ogType = bandData.ogType;
+					$rootScope.metas.ogUrl = bandData.ogUrl;
+					$rootScope.metas.keywords = bandData.metaKeys.join(',');
+					$rootScope.metas.desc = bandData.metaDesc.replace(/<\/?(.*?)>/g, '');
+					$rootScope.pageTitle = bandData.pageTitle;
+				})
+			}
+			else {
+				$rootScope.pageTitle = route.pageTitle;
+				$rootScope.metas.ogTitle = route.pageTitle;
+				$rootScope.metas.ogImg = '';
+				$rootScope.metas.ogType = 'website';
+				$rootScope.metas.ogUrl = route.url;
+				$rootScope.metas.keywords = 'angular rocks default';
+				$rootScope.metas.desc = 'This is only a test';
+			}
+		}
 	});
 })
 .constant('ROUTES', routes)
