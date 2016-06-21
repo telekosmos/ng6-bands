@@ -8,9 +8,15 @@ var gulp        = require('gulp'),
     ngAnnotate  = require('gulp-ng-annotate'),
     serve       = require('browser-sync'),
     yargs       = require('yargs').argv,
+    filter = require('gulp-filter'),
     rimraf      = require('rimraf')
 
+var packageJson = require('./package.json');
 var root = 'client';
+var rootJs = 'js';
+var baseUrl = packageJson.jspm.directories.baseURL;
+var packagesFolder = packageJson.jspm.directories.packages;
+packagesFolder = typeof packagesFolder === 'undefined'? 'jspm_packages': packagesFolder;
 
 // helper method to resolveToApp paths
 var resolveTo = function(resolvePath) {
@@ -30,8 +36,10 @@ var paths = {
 		resolveToApp('**/*.html'),
 		path.join(root, 'index.html')
 	],
+	js: resolveToApp('**/*.js'),
 	blankTemplates: path.join(__dirname, 'generator', 'component/**/*.**'),
-	dist: path.join(__dirname, 'dist/')
+	dist: path.join(__dirname, 'dist/'),
+	assets: [baseUrl+'/'+packagesFolder, baseUrl+'/assets']
 };
 
 gulp.task('serve', function(){
@@ -55,7 +63,7 @@ gulp.task('serve', function(){
 	});
 });
 
-gulp.task('build', function() {
+gulp.task('build', function() {   
 	var dist = path.join(paths.dist + 'app.js');
 	rimraf.sync(path.join(paths.dist, '*'));
 	// Use JSPM to bundle our app
@@ -64,16 +72,36 @@ gulp.task('build', function() {
 			// Also create a fully annotated minified copy
 			return gulp.src(dist)
 				.pipe(ngAnnotate())
-				.pipe(uglify())
-				.pipe(rename('app.min.js'))
+				// .pipe(uglify())
+				// .pipe(rename('app.min.js'))
 				.pipe(gulp.dest(paths.dist))
 		})
 		.then(function() {
 			// Inject minified script into index
 		  return gulp.src('client/index.html')
 				.pipe(htmlreplace({
-					'js': 'app.min.js'
+					'js': ['system.js', 'system.js.map', 'app.js'] // 'app.min.js']
 				}))
+				.pipe(gulp.dest(paths.dist));
+		})
+		.then(function() { // copy system.js file(s) to dist dir
+			var basePath = baseUrl+'/'+packagesFolder;
+			var files2copy = [basePath+'/system.js', basePath+'/system.js.map']
+
+			return gulp.src(files2copy, {base: basePath})
+				.pipe(gulp.dest(paths.dist));
+		})
+		.then(function() { // copy assets...
+			var basePath = baseUrl+'/'+packagesFolder;
+			var vinylAssets = paths.assets.map(function(elem) {
+				return elem+'/**';
+			});
+			var assetsMatch = '**/*.{svg,png,eot,ttf,wot,gif,jpg,json}';
+			var assetsFilter = filter([assetsMatch]);
+			
+			// return gulp.src([basePath+'/**'], {base: baseUrl})
+			return gulp.src(vinylAssets, {base: baseUrl})
+				.pipe(assetsFilter) 
 				.pipe(gulp.dest(paths.dist));
 		});
 });
