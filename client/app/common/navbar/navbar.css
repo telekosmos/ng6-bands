@@ -15,11 +15,8 @@
 */
 
 .navbar {
-  background-color: #0277BD; /* primaryColor */
+  background-color: black; /* #0277BD; * primaryColor */
   padding: 10px 0px 10px 50px;
-  /* border-radius: 15px; *
-  margin: 0px 10px 10px 10px; */
-  margin-bottom: 10px;
 }
 .navbar .nav-links,
 .navbar .logo {

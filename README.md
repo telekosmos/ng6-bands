@@ -12,6 +12,13 @@ Simple client angular app to display information about (predefined) bands.
 - Tags for [Open Grap Protocol](http://ogp.me) and normal metas.
 - Page names different than page title (in order to correctly display in list in home)
 
+## Requirements
+- node@~4.2
+- mocha@~2.2.5
+- gulp@~3.8
+- karma@~0.12.37
+- jspm@~0.16.39
+
 ## Quick start
 - `git clone` this repo
 - `npm install`
