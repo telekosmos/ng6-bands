@@ -1,0 +1,52 @@
+.linkstable {
+  margin: 0 auto;
+  color: black;
+  width: 60%;
+}
+
+.gray-border {
+  border: 1px solid lightgray;
+}
+
+.linkstable table {
+  width: 100%;
+  padding: 20px;
+  border: 1px solid gray;
+}
+
+.linkstable table thead {
+  font-weight: bolder;
+  text-align: left;
+  font-size: larger;
+  background-color: lightgray;
+}
+
+.linkstable > table > thead * {
+  border: 1px solid gray;
+  padding: 5px 15px 5px 15px;
+}
+
+.linkstable table tbody {
+  font-size: large;
+  font-weight: 100;
+}
+
+.linkstable > table > tbody *:not(a) {
+  border: 1px solid gray;
+  padding: 5px;
+}
+
+.linkstable > table > tbody a {
+  color: #0E4654;
+  text-decoration: none;
+}
+
+
+.linkstable > table > tbody > tr {
+  height: 2em;
+  background-color: lightgray;
+}
+
+.linkstable > table > tbody > tr:nth-child(2n+1) {
+  background-color: white;
+}

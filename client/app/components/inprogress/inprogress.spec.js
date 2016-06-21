@@ -2,19 +2,21 @@
 // https://github.com/Workiva/karma-jspm/issues/23
 import angular from 'angular';
 import 'angular-mocks';
-import AboutModule from './about'
-import AboutController from './about.controller';
-import AboutComponent from './about.component';
-import AboutTemplate from './about.html!text';
+import InprogressModule from './inprogress'
+import InprogressController from './inprogress.controller';
+import InprogressComponent from './inprogress.component';
+import InprogressTemplate from './inprogress.html!text';
 
-describe('About', ()=>{
+describe('Inprogress', ()=>{
 	let $rootScope,
 	makeController;
-
-	beforeEach(angular.mock.module(AboutModule.name));
+	
+	beforeEach(angular.mock.module(InprogressModule.name));
 	beforeEach(angular.mock.inject((_$rootScope_)=>{
 		$rootScope = _$rootScope_;
-		makeController = ()=> new AboutController();
+		makeController = ()=>{
+			return new InprogressController();
+		};
 	}));
 	
 	describe('Module', ()=>{
@@ -39,17 +41,17 @@ describe('About', ()=>{
 		// use Regexes to test that you are using the right bindings {{  }}
 		
 		it('should have name in template [REMOVE]', ()=>{
-			expect(AboutTemplate).to.match(/{{\s?vm\.name\s?}}/g);
+			expect(InprogressTemplate).to.match(/{{\s?vm\.name\s?}}/g);
 		});
 	});
 	
 	
 	describe('Component', ()=>{
 			// test the component/directive itself
-			let component = AboutComponent();
+			let component = InprogressComponent();
 			
 			it('should use the right template',()=>{
-				expect(component.template).to.equal(AboutTemplate);
+				expect(component.template).to.equal(InprogressTemplate);
 			});
 			
 			it('should use controllerAs', ()=>{
@@ -57,7 +59,7 @@ describe('About', ()=>{
 			});
 			
 			it('should use the right controller', ()=>{
-				expect(component.controller).to.equal(AboutController);
+				expect(component.controller).to.equal(InprogressController);
 			});
 	});
 });

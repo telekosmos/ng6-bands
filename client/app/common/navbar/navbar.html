@@ -1,8 +1,12 @@
 <nav class="navbar">
+<!--
 	<div class="logo">
-		<h1><a ui-sref="home">{{ vm.name }}</a></h1>
+		<span><a ui-sref="home">{{ vm.name }}</a></span>
 	</div>
+-->
 	<div class="nav-links">
-		<span><a ui-sref="about">about</a></span>
+		<div ng-repeat="state in vm._states" ui-sref-active="active-state">
+      <a ui-sref="{{state.name}}">{{state.pageName}}</a>
+    </div>
 	</div>
 </nav>

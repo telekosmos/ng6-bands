@@ -1,0 +1,13 @@
+.inprogress {
+  /*
+  background-color: #263238; * darkBgColor *
+  height: 500px;
+  padding: 30px;
+  */
+  text-align: center;
+}
+.inprogress * {
+  /* color: #F5F5F5; /* lightTextColor */
+  color: #263238;
+  font-size: 2em;
+}

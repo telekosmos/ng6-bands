@@ -2,11 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>angular-jspm-starter</title>
+
+  <title ng-bind="pageTitle"></title>  
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{{metas.desc}}">
+  <meta name="kewords" content="{{metas.keywords}}" />
+  <meta property="og:title" content="{{metas.ogTitle}}" />
+  <meta property="og:url" content="{{metas.ogUrl}}" />
+  <meta property="og:type" content="{{metas.ogType}}" />
+  <meta property="og:image" content="{{metas.ogImg}}" />
+
+  <!-- Necesary if html5 mode!! Needs build process update -->
+  <!-- <base href="/"> -->
 </head>
 <body>
-  <div id="app-container">
+  <div id="app-container" class="app-container">
     <app></app>
   </div>
   <!-- build:js -->

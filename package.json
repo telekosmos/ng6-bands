@@ -1,7 +1,7 @@
 {
-  "name": "angular-jspm-starter",
+  "name": "ng6-rock-bands-sample",
   "version": "0.0.1",
-  "description": "starter",
+  "description": "Test angular routes & bit of SEO",
   "dependencies": {},
   "scripts": {
     "test": "karma start",
@@ -21,10 +21,12 @@
     "configFile": "jspm.config.js",
     "dependencies": {
       "angular": "github:angular/bower-angular@^1.4.0",
-      "angular-mocks": "npm:angular-mocks@^1.4.0",
+      "angular-mocks": "github:angular/bower-angular-mocks@^1.5.7",
+      "angular-sanitize": "github:angular/bower-angular-sanitize@^1.5.7",
       "angular-ui-router": "github:angular-ui/ui-router@^0.2.15",
       "capaj/systemjs-hot-reloader": "github:capaj/systemjs-hot-reloader@^0.5.0",
       "css": "github:systemjs/plugin-css@^0.1.11",
+      "lodash.find": "npm:lodash.find@^4.4.0",
       "normalize.css": "github:necolas/normalize.css@^3.0.3",
       "text": "github:systemjs/plugin-text@^0.0.2"
     },
@@ -36,8 +38,11 @@
   },
   "devDependencies": {
     "browser-sync": "^2.7.6",
+    "chai": "^2.1.0",
+    "chai-as-promised": "^5.3.0",
     "chokidar-socket-emitter": "^0.3.0",
     "gulp": "^3.9.0",
+    "gulp-filter": "^4.0.0",
     "gulp-html-replace": "^1.5.0",
     "gulp-ng-annotate": "^1.0.0",
     "gulp-rename": "^1.2.2",
@@ -46,10 +51,12 @@
     "jspm": "^0.16.15",
     "karma": "^0.12.36",
     "karma-chai": "^0.1.0",
+    "karma-chai-as-promised": "^0.1.2",
     "karma-chrome-launcher": "^0.1.12",
-    "karma-jspm": "^1.1.5",
+    "karma-jspm": "^2.1.1",
     "karma-mocha": "^0.1.10",
     "karma-mocha-reporter": "^1.0.2",
+    "mocha": "^2.2.5",
     "rimraf": "^2.4.3",
     "yargs": "^3.10.0"
   }

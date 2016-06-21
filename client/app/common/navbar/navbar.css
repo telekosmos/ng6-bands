@@ -15,19 +15,38 @@
 */
 
 .navbar {
-  height: 65px;
   background-color: #0277BD; /* primaryColor */
-  padding: 10px;
+  padding: 10px 0px 10px 50px;
+  /* border-radius: 15px; *
+  margin: 0px 10px 10px 10px; */
+  margin-bottom: 10px;
 }
 .navbar .nav-links,
 .navbar .logo {
   display: inline-block;
+  text-decoration: none;
 }
-.navbar .logo {
-  color: #F5F5F5; /* lightTextColor */
-  margin-right: 50%;
+
+.navbar .nav-links div {
+  margin-right: 10px;
+  display: inline-block;
 }
-.navbar .nav-links span {
+
+.navbar .nav-links div a {
   color: #F5F5F5; /* lightTextColor */
-  font-size: 1.6rem;
+  margin-right: 10px;
+  margin-left: 10px;
+  text-decoration: none;
+}
+
+.navbar .nav-links div a:visited {
+  text-decoration: none;
+}
+
+.active-state {
+  background-color: #F5F5F5;
+}
+
+.active-state * {
+  color: #0277BD !important;
 }
