@@ -1,25 +1,18 @@
 <navbar></navbar>
-<div class="content">
+<div class="band-content">
   <div class="band-name">{{vm.bandData.pageTitle}}</div>
   <div class="band">
     <section class="band-info">
       <div class="band-image">
-        <!--<img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Queen_-_montagem.png" /> -->
         <img src="{{vm.bandData.img}}" />
+        <p class="band-text" ng-bind-html="vm.bandData.text"></p>
       </div>
-      <div class="band-text" ng-bind-html="vm.bandData.text">
-      <!--
-      Queen are a British rock band that formed in London in 1970. Their classic line-up was Freddie Mercury (lead vocals, piano), Brian May (lead guitar, vocals), Roger Taylor (drums, vocals), and John Deacon (bass guitar). Queen's earliest works were influenced by progressive rock, hard rock and heavy metal, but the band gradually ventured into more conventional and radio-friendly works by incorporating further styles, such as arena rock and pop rock, into their music.
-      -->
-      </div>
+
     </section>
 
     <section class="band-video">
-      <iframe style="overflow:hidden" no-width="100%" no-height="100%" src="{{vm.bandData.youtube}}" class="video" frameborder="0" allowfullscreen></iframe>
-
-    <!--
-    <iframe width="640" height="360" src="https://www.youtube.com/embed/_P57CbtAVE0" frameborder="0" allowfullscreen></iframe>
-    -->
+      <iframe style="overflow:hidden" width="100%" height="100%" src="{{vm.bandData.youtube}}" class="video" frameborder="0" allowfullscreen></iframe>
+    
     </section>
 
   </div>
