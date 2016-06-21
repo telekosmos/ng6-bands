@@ -1,21 +1,21 @@
-.band {
-	display: flex;
-  display: -webkit-flex;
-  flex-direction: row;
-  -webkit-flex-direction: row;
+
+
+.band-content {
+  width: 60%;
+  background-color: #303338;
+  margin: 0 auto;
+  padding: 15px;
 }
 
 .band-info, .band-video {
-  flex: 1;
-  -webkit-flex: 1;
-  margin: 5px;
 }
 
 .band-video {
   position: relative;
   height: 0;
-  padding-top: 40%;
+  padding-top: 60%;
   width: 100%;
+  margin-bottom: 20px
 }
 
 .band-video > .video {
@@ -30,15 +30,25 @@
 
 
 .band-name {
-  font-weight: bolder;
+  color: white;
   font-size: 2em;
   text-align: center;
 }
 
-.band-image * {
-  width: 100%;
+.band-image {
+}
+
+.band-image img {
+  width: 60%;
+  float:left;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .band-text {
-  color: darkblue;
+  color: #D0DCEC;
+}
+
+.band-text p {
+  padding: 5px 10px 5px 10px;
 }
