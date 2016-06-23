@@ -75,6 +75,42 @@ class AppUtil {
       return bandInfo;
     }) // EO return wiki
   } 
+
+  /**
+   * [updateMetas description]
+   * @param  {Object} route A route from the preconfigured routes
+   * @return {[type]}       [description]
+   */
+  updateMetas(route) {
+    let metainfo = {};
+    metainfo.pageTitle = route.pageTitle;
+    metainfo.metas = {};
+    metainfo.metas.ogTitle = route.pageTitle;
+    metainfo.metas.ogImg = '';
+    metainfo.metas.ogType = 'website';
+    metainfo.metas.ogUrl = route.url;
+    metainfo.metas.keywords = 'angular rocks default';
+    metainfo.metas.desc = 'This is only a test';
+
+    if (!!route.type && route.type == 'band') {
+      return this.getBandMedia(route.name).then(bandData => {
+        metainfo.metas.ogTitle = bandData.ogTit;
+        metainfo.metas.ogImg = bandData.ogImg;
+        metainfo.metas.ogType = bandData.ogType;
+        metainfo.metas.ogUrl = bandData.ogUrl;
+        metainfo.metas.keywords = bandData.metaKeys.join(',');
+        metainfo.metas.desc = bandData.metaDesc.replace(/<\/?(.*?)>/g, '');
+        metainfo.pageTitle = bandData.pageTitle;
+
+        return metainfo;
+      })
+    }
+    else {
+      let deferred = this._$q.defer();      
+      deferred.resolve(metainfo);
+      return deferred.promise;
+    }
+  }
 }
 
 
