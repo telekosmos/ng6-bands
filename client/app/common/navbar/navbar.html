@@ -5,6 +5,8 @@
 	</div>
 -->
 	<div class="nav-links">
-		<span ng-repeat="state in vm._states"><a ui-sref="{{state.name}}">{{state.pageName}}</a></span>
+		<div ng-repeat="state in vm._states" ui-sref-active="active-state">
+      <a ui-sref="{{state.name}}">{{state.pageName}}</a>
+    </div>
 	</div>
 </nav>
