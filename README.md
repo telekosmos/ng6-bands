@@ -9,7 +9,7 @@ Simple client angular app to display information about (predefined) bands.
 - Routes defined in `app.routes.js`
 - Easily add new bands.
 - Modular design.
-- Tags for [Open Grap Protocol](http://ogp.me) and normal metas.
+- Tags for [Open Graph Protocol](http://ogp.me) and normal metas.
 - Page names different than page title (in order to correctly display in list in home)
 
 ## Requirements
